@@ -1,0 +1,133 @@
+/* ==========================================================================
+   PÁGINA DE ARTIGO - estilos específicos
+   (usa as variáveis e classes globais definidas em style.css)
+   ========================================================================== */
+
+/* ---------- Topo da página ---------- */
+.topo-pagina {
+  padding: 3.5rem 0 1rem;
+}
+
+.categoria {
+  display: inline-block;
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cor-vermelho);
+  border-bottom: 3px solid var(--cor-dourado);
+  padding-bottom: 0.4rem;
+  margin-bottom: 1.8rem;
+}
+
+.titulo-principal {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 2.4rem;
+  line-height: 1.25;
+  color: var(--cor-preto);
+  margin-bottom: 1rem;
+  max-width: 900px;
+}
+
+/* ---------- Corpo do artigo ---------- */
+.corpo-artigo {
+  max-width: 880px;
+}
+
+.corpo-artigo p {
+  margin-bottom: 1.8rem;
+  line-height: 1.8;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.subtitulo-artigo {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--cor-preto);
+  margin: 3rem 0 1.5rem;
+}
+
+.frase-destaque {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--cor-preto);
+  margin-bottom: 1.8rem;
+}
+
+.citacao-santa {
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--cor-vermelho);
+  border-left: 4px solid var(--cor-dourado);
+  padding: 0.2rem 0 0.2rem 1.2rem;
+  margin: 2rem 0;
+}
+
+/* ---------- Bloco com imagem ao lado do texto ---------- */
+.bloco-com-imagem {
+  display: grid;
+  grid-template-columns: minmax(140px, 260px) 1fr;
+  gap: 1.8rem;
+  align-items: start;
+  margin-bottom: 1.8rem;
+}
+
+.bloco-com-imagem img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--raio-borda);
+}
+
+.bloco-com-imagem .bloco-texto p {
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+}
+
+.bloco-com-imagem .bloco-texto p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Imagem em largura total ---------- */
+.imagem-cheia {
+  margin: 2.5rem 0;
+  border-radius: var(--raio-borda);
+  overflow: hidden;
+}
+
+.imagem-cheia img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---------- Responsivo ---------- */
+/* O bloco com imagem só empilha em telas realmente pequenas,
+   pra manter texto ao lado da imagem no máximo de larguras possível */
+@media (max-width: 560px) {
+  .titulo-principal {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bloco-com-imagem {
+    grid-template-columns: 110px 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .bloco-com-imagem {
+    grid-template-columns: 1fr;
+  }
+
+  .bloco-com-imagem img {
+    aspect-ratio: 16 / 9;
+  }
+}

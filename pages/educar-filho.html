@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vimos o Senhor! | Pantokrator</title>
+
+  <style>
+/* ==========================================================================
+   VARIÁVEIS GLOBAIS
+   ========================================================================== */
+
+  @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --cor-preto: #14181f;
+  --cor-vermelho: #82322D;
+  --cor-vermelho-escuro: #82322D;
+  --cor-marinho: #143C4B;
+  --cor-dourado: #E1A523;
+  --cor-dourado-escuro: #b3852e;
+  --cor-creme: #f8f5ef;
+  --cor-branco: #ffffff;
+  --cor-texto: #262626;
+  --cor-texto-claro: #6e6e6e;
+  --cor-borda: #e4ded2;
+
+  --fonte-titulo: "Raleway", sans-serif;
+  --fonte-texto: "Raleway", sans-serif;
+
+  --largura-maxima: 1180px;
+  --raio-borda: 4px;
+  --transicao: 0.25s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--fonte-texto);
+  color: var(--cor-texto);
+  background-color: var(--cor-creme);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--largura-maxima);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.espaco-imagem {
+  width: 100%;
+  height: 100%;
+  min-height: 160px;
+  background-color: #c9c9c9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #767676;
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--cor-preto);
+  color: var(--cor-branco);
+}
+
+.cabecalho .container {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: 64px;
+}
+
+.botao-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: transparent;
+  border: none;
+  color: var(--cor-branco);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  justify-self: start;
+}
+
+.botao-menu .icone-hamburguer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 22px;
+}
+
+.botao-menu .icone-hamburguer span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: var(--cor-branco);
+  transition: transform var(--transicao), opacity var(--transicao);
+}
+
+.botao-menu.ativo .icone-hamburguer span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.botao-menu.ativo .icone-hamburguer span:nth-child(2) {
+  opacity: 0;
+}
+.botao-menu.ativo .icone-hamburguer span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.logo {
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo img {
+  height: 38px;
+  width: auto;
+}
+
+.logo span {
+  font-family: var(--fonte-titulo);
+  font-size: 1.05rem;
+}
+
+.menu-fundo {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transicao);
+  z-index: 1100;
+}
+
+.menu-fundo.aberto {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.menu-principal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: min(320px, 85%);
+  background-color: var(--cor-branco);
+  transform: translateX(-100%);
+  transition: transform var(--transicao);
+  z-index: 1200;
+  overflow-y: auto;
+}
+
+.menu-principal.aberto {
+  transform: translateX(0);
+}
+
+.menu-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.menu-fechar {
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--cor-preto);
+}
+
+.menu-lista {
+  padding: 1rem 0;
+}
+
+.menu-lista li a {
+  display: block;
+  padding: 0.85rem 1.5rem;
+  color: var(--cor-texto);
+  font-size: 0.95rem;
+  border-bottom: 1px solid var(--cor-borda);
+  transition: background-color var(--transicao), color var(--transicao);
+}
+
+.menu-lista li a:hover,
+.menu-lista li a.ativo {
+  background-color: var(--cor-creme);
+  color: var(--cor-vermelho);
+}
+
+.botao {
+  display: inline-block;
+  background-color: var(--cor-dourado);
+  color: var(--cor-preto);
+  padding: 0.75rem 1.7rem;
+  border-radius: var(--raio-borda);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border: none;
+  transition: background-color var(--transicao);
+}
+
+.botao:hover {
+  background-color: var(--cor-dourado-escuro);
+}
+
+.botao-fantasma {
+  display: inline-block;
+  border: 2px solid var(--cor-branco);
+  color: var(--cor-branco);
+  padding: 0.7rem 1.6rem;
+  border-radius: var(--raio-borda);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  transition: background-color var(--transicao), color var(--transicao);
+}
+
+.botao-fantasma:hover {
+  background-color: var(--cor-branco);
+  color: var(--cor-preto);
+}
+
+.titulo-secao {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--fonte-titulo);
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+}
+
+.titulo-secao .marca {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.secao {
+  padding: 3.5rem 0;
+}
+
+.rodape {
+  background-color: var(--cor-marinho);
+  color: #eef2f4;
+  padding: 3rem 0 1.5rem;
+}
+
+.rodape-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.rodape h4 {
+  font-family: var(--fonte-titulo);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+  color: var(--cor-dourado);
+}
+
+.rodape ul li {
+  margin-bottom: 0.55rem;
+  font-size: 0.9rem;
+}
+
+.rodape a {
+  color: #eef2f4;
+  opacity: 0.85;
+  transition: opacity var(--transicao);
+}
+
+.rodape a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.rodape-logo {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.rodape-logo img {
+  height: 44px;
+  margin: 0 auto;
+}
+
+.rodape-base {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 1.2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+
+@media (min-width: 700px) {
+  .secao {
+    padding: 4.5rem 0;
+  }
+}
+/* ==========================================================================
+   PÁGINA DE ARTIGO - estilos específicos
+   (usa as variáveis e classes globais definidas em style.css)
+   ========================================================================== */
+
+/* ---------- Topo da página ---------- */
+.topo-pagina {
+  padding: 3.5rem 0 1rem;
+}
+
+.categoria {
+  display: inline-block;
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cor-vermelho);
+  border-bottom: 3px solid var(--cor-dourado);
+  padding-bottom: 0.4rem;
+  margin-bottom: 1.8rem;
+}
+
+.titulo-principal {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 2.4rem;
+  line-height: 1.25;
+  color: var(--cor-preto);
+  margin-bottom: -3rem;
+  max-width: 900px;
+}
+
+/* ---------- Corpo do artigo ---------- */
+.corpo-artigo {
+  max-width: 880px;
+}
+
+.corpo-artigo p {
+  margin-bottom: 1.8rem;
+  line-height: 1.8;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.subtitulo-artigo {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--cor-preto);
+  margin: 3rem 0 1.5rem;
+}
+
+.frase-destaque {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--cor-preto);
+  margin-bottom: 1.8rem;
+}
+
+.citacao-santa {
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--cor-vermelho);
+  border-left: 4px solid var(--cor-dourado);
+  padding: 0.2rem 0 0.2rem 1.2rem;
+  margin: 2rem 0;
+}
+
+/* ---------- Bloco com imagem ao lado do texto ---------- */
+.bloco-com-imagem {
+  display: grid;
+  grid-template-columns: minmax(140px, 260px) 1fr;
+  gap: 1.8rem;
+  align-items: start;
+  margin-bottom: 1.8rem;
+}
+
+.bloco-com-imagem img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--raio-borda);
+}
+
+.bloco-com-imagem .bloco-texto p {
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+}
+
+.bloco-com-imagem .bloco-texto p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Imagem em largura total ---------- */
+.imagem-cheia {
+  margin: 2.5rem 0;
+  border-radius: var(--raio-borda);
+  overflow: hidden;
+}
+
+.imagem-cheia img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---------- Card do autor do artigo ---------- */
+.autor-artigo {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.4rem;
+  align-items: center;
+  margin: 2.5rem 0 0.5rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.autor-foto {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  padding: 3px;
+  background: var(--cor-vermelho);
+  flex-shrink: 0;
+}
+
+.autor-foto img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--cor-creme);
+}
+
+.autor-nome {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cor-vermelho);
+  line-height: 1.2;
+}
+
+.autor-descricao {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--cor-texto-claro);
+  text-align: left;
+}
+
+.autor-cta {
+  margin: 1.2rem 0 2rem;
+}
+
+.autor-cta a {
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--cor-vermelho);
+  transition: color var(--transicao);
+}
+
+.autor-cta a:hover {
+  color: var(--cor-dourado-escuro);
+}
+
+@media (max-width: 480px) {
+  .autor-artigo {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .autor-descricao {
+    text-align: center;
+  }
+
+  .autor-cta {
+    text-align: center;
+  }
+}
+
+/* ---------- Bloco com imagem ao lado do texto ---------- */
+.bloco-com-imagem {
+  display: grid;
+  grid-template-columns: minmax(140px, 260px) 1fr;
+  gap: 1.8rem;
+  align-items: start;
+  margin-bottom: 1.8rem;
+}
+
+.bloco-com-imagem img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--raio-borda);
+}
+
+.bloco-com-imagem .bloco-texto p {
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+}
+
+.bloco-com-imagem .bloco-texto p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Imagem em largura total ---------- */
+.imagem-cheia {
+  margin: 2.5rem 0;
+  border-radius: var(--raio-borda);
+  overflow: hidden;
+}
+
+.imagem-cheia img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---------- Responsivo ---------- */
+/* O bloco com imagem só empilha em telas realmente pequenas,
+   pra manter texto ao lado da imagem no máximo de larguras possível */
+@media (max-width: 560px) {
+  .titulo-principal {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bloco-com-imagem {
+    grid-template-columns: 110px 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .bloco-com-imagem {
+    grid-template-columns: 1fr;
+  }
+
+  .bloco-com-imagem img {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+ 
+<!-- ==================== CABEÇALHO ==================== -->
+  <header class="cabecalho">
+    <div class="container">
+      <button class="botao-menu" aria-label="Abrir menu">
+        <span class="icone-hamburguer">
+          <span></span><span></span><span></span>
+        </span>
+        MENU
+      </button>
+
+      <a href="../index.html" class="logo">
+        <img src="../img/logo.png" alt="Pantokrator">
+      </a>
+
+      <div></div> <!-- espaço vazio para manter a logo centralizada -->
+    </div>
+  </header>
+
+  <!-- ==================== MENU EM GAVETA ==================== -->
+  <div class="menu-fundo"></div>
+  <nav class="menu-principal">
+    <div class="menu-cabecalho">
+      <button class="menu-fechar" aria-label="Fechar menu">&times;</button>
+    </div>
+    <ul class="menu-lista">
+      <li><a href="../index.html">Início</a></li>
+      <li><a href="sobre-nos.html">História</a></li>
+      <li><a href="sobre-nos.html">Fundador</a></li>
+      <li><a href="sobre-nos.html">Carisma</a></li>
+      <li><a href="sobre-nos.html">Santos Baluartes</a></li>
+      <li><a href="onde-estamos.html">Onde Estamos</a></li>
+      <li><a href="projetos.html">Nossos Projetos</a></li>
+      <li><a href="artigos.html">Artigos</a></li>
+    </ul>
+  </nav>
+
+
+  <main>
+
+    <!-- ==================== TOPO DA PÁGINA ==================== -->
+    <section class="topo-pagina">
+      <div class="container">
+        <span class="categoria">Artigos</span>
+        <h1 class="titulo-principal">Antes de educar um filho</h1>
+      </div>
+    </section>
+
+    <!-- ==================== CORPO DO ARTIGO ==================== -->
+    <section class="secao">
+      <div class="container">
+        <div class="corpo-artigo">
+
+          <h2 class="subtitulo-artigo">Antes de educar um filho, é preciso que um pai eduque a si mesmo</h2>
+
+          <p>
+            Agosto chega acompanhado de homenagens, fotografias e palavras de gratidão. É o mês em que celebramos os pais, reconhecemos suas histórias e recordamos os 
+            gestos que ajudaram a formar quem somos. Talvez seja também uma oportunidade para pensar, com um pouco mais de profundidade, sobre o que significa ocupar 
+            esse lugar na vida de alguém.
+          </p>
+
+          <p>
+            A paternidade começa com o nascimento de um filho, mas não se completa nesse instante. Um homem se torna pai ao longo do tempo, nas responsabilidades que assume 
+            e nas escolhas que faz todos os dias. Afinal, não existe um acontecimento capaz de prepará-lo inteiramente para essa missão. Há somente um caminho que vai sendo 
+            aprendido enquanto é vivido.
+          </p>
+
+          <p>
+            É sobre essa relação feita de amor, autoridade, limites, erros e recomeços que Fulton J. Sheen reflete em Pais e Filhos. O livro não apresenta uma fórmula para 
+            criar filhos perfeitos. Sua proposta é mais exigente: levar os adultos a examinar a maneira como educam e, principalmente, a pessoa que estão se tornando enquanto educam.
+          </p>
+
+          <h2 class="subtitulo-artigo">Paternidade e aquilo que os filhos aprendem em silêncio</h2>
+
+          <div class="bloco-com-imagem">
+            <img src="../img/educar-filho.png" alt="Mãos em oração">
+            <div class="bloco-texto">
+              <p>
+                Os filhos observam como o pai reage quando é contrariado, como trata as pessoas quando não precisa impressioná-las, como enfrenta o cansaço e como lida com os 
+                próprios fracassos. Além disso, percebem se ele cumpre o que promete, se reconhece seus erros e se existe correspondência entre aquilo que exige e aquilo que 
+                vive. Pode-se ensinar muito por meio de conselhos, porém algumas verdades só se tornam convincentes quando encontram uma vida que as sustente e que seja coerente.
+              </p>
+              <p>
+                Essa é uma das provocações mais fortes da obra: antes de perguntar por que um filho não escuta, seria necessário perguntar o que ele tem visto. A autoridade 
+                paterna não se estabelece apenas porque alguém ocupa determinado lugar na família. Ao contrário, ela se constrói na coerência. Um pai pode admitir que errou 
+                sem perder o respeito dos filhos. Nesse sentido, reconhecer uma falha pode ensinar mais sobre caráter do que manter uma imagem impossível de perfeição.
+              </p>
+            </div>
+          </div>
+
+          <p>
+            O filho não precisa encontrar no pai um homem que nunca cai. Precisa encontrar alguém que saiba por que deve se levantar.
+          </p>
+
+          <h2 class="subtitulo-artigo">O difícil equilíbrio entre amor e autoridade na paternidade</h2>
+          <p>
+            Uma das tarefas mais delicadas da paternidade é compreender que amar não significa tornar tudo fácil. Existe uma tentação muito humana de proteger os filhos de 
+            qualquer frustração. Alguns pais fazem isso porque sofreram e desejam oferecer uma experiência diferente. Outros, por sua vez, temem perder o afeto dos filhos ou 
+            serem considerados duros. Assim, pouco a pouco, o cuidado pode transformar-se em permissividade.
+
+          <p>
+            Fulton Sheen chama a atenção para esse risco. Quando o amor perde a coragem de orientar, pode deixar de preparar o filho para a realidade. A vida não aceitará 
+            todos os seus desejos. Haverá esperas, limites, derrotas e portas fechadas. Portanto, evitar toda dificuldade não fortalece uma criança. Apenas adia seu encontro 
+            com aquilo que um dia precisará enfrentar.
+          </p>
+
+          <p>
+            No entanto, o extremo contrário também deixa marcas. A severidade excessiva, a crítica constante e a autoridade exercida pela humilhação podem produzir obediência 
+            aparente, mas nunca verdadeira maturidade. O medo controla comportamentos por algum tempo, mas dificilmente forma uma consciência livre. O desafio está entre esses 
+            dois extremos. Educar é corrigir sem diminuir, escutar sem renunciar à responsabilidade e oferecer liberdade acompanhada da capacidade de responder pelas próprias 
+            escolhas.
+          </p>
+
+          <div class="imagem-cheia">
+            <img src="../img/educar-filho.png" alt="Jesus cercado pelas pessoas">
+          </div>
+
+          <h2 class="subtitulo-artigo">Que prêmio poderia ser maior?</h2>
+
+          <p>
+            Pais e Filhos nasce de uma visão cristã da família e compreende a educação como formação integral da pessoa. Para Fulton Sheen, não basta preparar um jovem para 
+            conquistar uma profissão ou alcançar reconhecimento. É preciso ajudá-lo a formar a vontade, ordenar os desejos e tornar-se capaz de amar, servir e assumir responsabilidades.
+          </p>
+
+          <p>
+            Algumas de suas formulações pertencem ao tempo em que foram escritas. Ainda assim, as perguntas permanecem atuais. Que tipo de homem um filho encontra quando olha 
+            para o pai? O que aprende ao observar suas escolhas? A autoridade exercida dentro de casa forma ou apenas controla? Há tempo para escutar aquilo que ainda não conseguiu ser dito?
+          </p>
+
+          <p>
+            Por isso, esta não é uma leitura apenas sobre os filhos. É também um convite ao exame da própria vida. No mês em que tantos presentes são oferecidos aos pais, 
+            Fulton Sheen nos recorda que a paternidade também é um presente, embora venha acompanhada de uma enorme responsabilidade. Um filho não entrega ao pai apenas seu afeto. Entrega-lhe, 
+            durante algum tempo, a confiança de quem ainda está aprendendo a compreender o mundo.
+          </p>
+
+          <p>
+            Adquira o livro em nossa loja online.
+          </p>
+
+            <div class="autor-artigo">
+            <div class="autor-foto">
+              <img src="../img/ana-clara-borges.avif" alt="Marcia Pataro">
+            </div>
+            <div class="autor-info">
+              <p class="autor-nome">Ana Clara Borges</p>
+              <p class="autor-descricao">Consagrada da Comunidade Pantokrator há 5 anos. Formada em Fisioterapia, formadora comunitária, da missão de Campinas.</p>
+            </div>
+          </div>
+
+           <div class="autor-cta">
+            <a href="escritores.html">Clique aqui para ver todos os escritores</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+    <!-- ==================== RODAPÉ ==================== -->
+  <footer class="rodape">
+    <div class="container">
+
+      <div class="rodape-grade">
+        <div>
+          <h4>Quem Somos</h4>
+          <ul>
+            <li><a href="sobre-nos.html">Quem somos</a></li>
+            <li><a href="artigos.html">Artigos</a></li>
+            <li><a href="ebook.html">Ebooks</a></li>
+            <li><a href="projetos.html">Nossos Projetos</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Onde Estamos</h4>
+          <ul>
+            <li><a href="onde-estamos.html">Sede Fundacional</a></li>
+            <li><a href="onde-estamos.html">Missão Morales</a></li>
+            <li><a href="onde-estamos.html">Missão França</a></li>
+            <li><a href="onde-estamos.html">Missão em Jaguariúna</a></li>
+            <li><a href="onde-estamos.html">Missão em Santos</a></li>
+            <li><a href="onde-estamos.html">Missão São José dos Campos</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Entre Aqui</h4>
+          <ul>
+            <li><a href="pages/doacoes.html">Doações</a></li>
+            <li><a href="pages/pedido-oracao.html">Pedido de oração</a></li>
+            <li><a href="pages/contato.html">Contato</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Redes Sociais</h4>
+          <ul>
+            <li><a href="https://www.instagram.com/compantokrator/" target="_blank">Instagram</a></li>
+            <li><a href="https://www.youtube.com/@compantokrator" target="_blank">Youtube</a></li>
+            <li><a href="https://open.spotify.com/intl-pt/artist/7LbSgDUNXEhzbdzxePeo5Q" target="_blank">Spotify</a></li>
+            <li><a href="https://www.facebook.com/compantokrator/?locale=pt_BR" target="_blank">Facebook</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="index.html" class="logo">
+        <img src="../img/logo.png" alt="Pantokrator">
+      </a>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

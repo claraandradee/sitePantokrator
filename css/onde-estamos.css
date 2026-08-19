@@ -1,0 +1,257 @@
+/* ==========================================================================
+   CABEÇALHO DA PÁGINA (eyebrow sublinhado + título grande espaçado)
+   ========================================================================== */
+.topo-pagina {
+  padding: 2.6rem 0 1rem;
+  text-align: center;
+}
+
+.topo-pagina .container {
+  text-align: left;
+}
+
+.eyebrow-pagina {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--cor-vermelho);
+  margin-bottom: 2.2rem;
+}
+
+.eyebrow-sublinhado {
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--cor-vermelho);
+}
+
+.titulo-hero-missoes {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--cor-marinho);
+  font-size: 2.4rem;
+  letter-spacing: 0.22em;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   CARROSSEL DE MISSÕES (título + texto trocam ao clicar nas setas)
+   ========================================================================== */
+.missao-carrossel {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.seta-missao {
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  color: var(--cor-marinho);
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  opacity: 0.75;
+  transition: opacity var(--transicao), transform var(--transicao);
+}
+
+.seta-missao:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.cartao-missao {
+  flex: 1;
+  background-color: #dcd8d1; /* ajuste este tom de cinza se quiser bater exatamente com a marca */
+  border-radius: 28px;
+  padding: 1.8rem 2.2rem;
+  transition: opacity 0.2s ease, box-shadow var(--transicao), transform 0.4s ease, padding 0.4s ease;
+  cursor: pointer;
+}
+
+.cartao-missao:hover,
+.cartao-missao:focus-within {
+  box-shadow: 0 18px 40px rgba(20, 60, 75, 0.2);
+  transform: scale(1.015);
+  padding: 2.6rem 3.2rem;
+}
+
+.cartao-missao.trocando {
+  opacity: 0;
+}
+
+/* Linha interna: imagem de um lado, texto do outro */
+.cartao-missao-linha {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.cartao-missao-imagem {
+  flex-shrink: 0;
+  width: 220px;
+  height: 220px;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.cartao-missao-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cartao-missao:hover .cartao-missao-imagem,
+.cartao-missao:focus-within .cartao-missao-imagem {
+  width: 260px;
+  height: 260px;
+}
+
+.cartao-missao-conteudo {
+  flex: 1;
+  min-width: 0;
+}
+
+.titulo-missao {
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--cor-marinho);
+  margin-bottom: 1rem;
+}
+
+/* Envoltório do texto: controla o truncamento e o degradê de "leia mais" */
+.texto-missao-envolucro {
+  position: relative;
+}
+
+.texto-missao {
+  color: var(--cor-texto);
+  line-height: 1.9;
+  font-size: 1rem;
+  text-align: justify;
+
+  /* Caixa menor por padrão: mostra só ~2 linhas do primeiro parágrafo */
+  max-height: 3.8em;
+  overflow: hidden;
+  transition: max-height 0.6s ease;
+}
+
+.texto-missao p {
+  margin-bottom: 1.1rem;
+}
+
+.texto-missao p:last-child {
+  margin-bottom: 0;
+}
+
+/* Linhas de contato (Localização, Endereço, E-mail, Telefone) */
+.texto-missao .info-missao {
+  font-size: 0.92rem;
+  text-align: left;
+}
+
+.texto-missao .info-missao strong {
+  color: var(--cor-marinho);
+}
+
+/* Degradê que indica que há mais texto abaixo */
+.texto-missao-envolucro::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1.9rem; /* fica logo acima da dica de "leia mais" */
+  height: 2.2rem;
+  background: linear-gradient(to bottom, rgba(220, 216, 209, 0), rgba(220, 216, 209, 1));
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+/* Dica de interação */
+.dica-leia-mais {
+  display: block;
+  margin-top: 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--cor-vermelho);
+  opacity: 0.75;
+  transition: opacity 0.3s ease;
+}
+
+/* Estado expandido: ao passar o mouse (ou focar via teclado) no card,
+   o texto cresce bem mais do que o tamanho padrão */
+.cartao-missao:hover .texto-missao,
+.cartao-missao:focus-within .texto-missao {
+  max-height: 60em;
+}
+
+.cartao-missao:hover .texto-missao-envolucro::after,
+.cartao-missao:focus-within .texto-missao-envolucro::after,
+.cartao-missao:hover .dica-leia-mais,
+.cartao-missao:focus-within .dica-leia-mais {
+  opacity: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVO
+   ========================================================================== */
+@media (max-width: 780px) {
+  .titulo-hero-missoes {
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .cartao-missao,
+  .cartao-missao:hover,
+  .cartao-missao:focus-within {
+    padding: 1.6rem 1.4rem;
+    border-radius: 18px;
+    transform: none;
+  }
+
+  .missao-carrossel {
+    gap: 0.6rem;
+  }
+
+  .seta-missao {
+    font-size: 1.2rem;
+  }
+
+  /* Em telas menores, imagem em cima e texto embaixo */
+  .cartao-missao-linha {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .cartao-missao-imagem,
+  .cartao-missao:hover .cartao-missao-imagem,
+  .cartao-missao:focus-within .cartao-missao-imagem {
+    width: 100%;
+    height: 180px;
+  }
+
+  .titulo-missao {
+    text-align: center;
+  }
+
+  /* Em telas sem hover (celular), o texto já aparece completo */
+  .texto-missao {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .texto-missao-envolucro::after,
+  .dica-leia-mais {
+    display: none;
+  }
+}

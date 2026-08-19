@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vimos o Senhor! | Pantokrator</title>
+
+  <style>
+/* ==========================================================================
+   VARIÁVEIS GLOBAIS
+   ========================================================================== */
+
+  @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --cor-preto: #14181f;
+  --cor-vermelho: #82322D;
+  --cor-vermelho-escuro: #82322D;
+  --cor-marinho: #143C4B;
+  --cor-dourado: #E1A523;
+  --cor-dourado-escuro: #b3852e;
+  --cor-creme: #f8f5ef;
+  --cor-branco: #ffffff;
+  --cor-texto: #262626;
+  --cor-texto-claro: #6e6e6e;
+  --cor-borda: #e4ded2;
+
+  --fonte-titulo: "Raleway", sans-serif;
+  --fonte-texto: "Raleway", sans-serif;
+
+  --largura-maxima: 1180px;
+  --raio-borda: 4px;
+  --transicao: 0.25s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--fonte-texto);
+  color: var(--cor-texto);
+  background-color: var(--cor-creme);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--largura-maxima);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.espaco-imagem {
+  width: 100%;
+  height: 100%;
+  min-height: 160px;
+  background-color: #c9c9c9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #767676;
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--cor-preto);
+  color: var(--cor-branco);
+}
+
+.cabecalho .container {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: 64px;
+}
+
+.botao-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: transparent;
+  border: none;
+  color: var(--cor-branco);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  justify-self: start;
+}
+
+.botao-menu .icone-hamburguer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 22px;
+}
+
+.botao-menu .icone-hamburguer span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: var(--cor-branco);
+  transition: transform var(--transicao), opacity var(--transicao);
+}
+
+.botao-menu.ativo .icone-hamburguer span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.botao-menu.ativo .icone-hamburguer span:nth-child(2) {
+  opacity: 0;
+}
+.botao-menu.ativo .icone-hamburguer span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.logo {
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo img {
+  height: 38px;
+  width: auto;
+}
+
+.logo span {
+  font-family: var(--fonte-titulo);
+  font-size: 1.05rem;
+}
+
+.menu-fundo {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transicao);
+  z-index: 1100;
+}
+
+.menu-fundo.aberto {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.menu-principal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: min(320px, 85%);
+  background-color: var(--cor-branco);
+  transform: translateX(-100%);
+  transition: transform var(--transicao);
+  z-index: 1200;
+  overflow-y: auto;
+}
+
+.menu-principal.aberto {
+  transform: translateX(0);
+}
+
+.menu-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.menu-fechar {
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--cor-preto);
+}
+
+.menu-lista {
+  padding: 1rem 0;
+}
+
+.menu-lista li a {
+  display: block;
+  padding: 0.85rem 1.5rem;
+  color: var(--cor-texto);
+  font-size: 0.95rem;
+  border-bottom: 1px solid var(--cor-borda);
+  transition: background-color var(--transicao), color var(--transicao);
+}
+
+.menu-lista li a:hover,
+.menu-lista li a.ativo {
+  background-color: var(--cor-creme);
+  color: var(--cor-vermelho);
+}
+
+.botao {
+  display: inline-block;
+  background-color: var(--cor-dourado);
+  color: var(--cor-preto);
+  padding: 0.75rem 1.7rem;
+  border-radius: var(--raio-borda);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border: none;
+  transition: background-color var(--transicao);
+}
+
+.botao:hover {
+  background-color: var(--cor-dourado-escuro);
+}
+
+.botao-fantasma {
+  display: inline-block;
+  border: 2px solid var(--cor-branco);
+  color: var(--cor-branco);
+  padding: 0.7rem 1.6rem;
+  border-radius: var(--raio-borda);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  transition: background-color var(--transicao), color var(--transicao);
+}
+
+.botao-fantasma:hover {
+  background-color: var(--cor-branco);
+  color: var(--cor-preto);
+}
+
+.titulo-secao {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--fonte-titulo);
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1.8rem;
+}
+
+.titulo-secao .marca {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.secao {
+  padding: 3.5rem 0;
+}
+
+.rodape {
+  background-color: var(--cor-marinho);
+  color: #eef2f4;
+  padding: 3rem 0 1.5rem;
+}
+
+.rodape-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.rodape h4 {
+  font-family: var(--fonte-titulo);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 1rem;
+  color: var(--cor-dourado);
+}
+
+.rodape ul li {
+  margin-bottom: 0.55rem;
+  font-size: 0.9rem;
+}
+
+.rodape a {
+  color: #eef2f4;
+  opacity: 0.85;
+  transition: opacity var(--transicao);
+}
+
+.rodape a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.rodape-logo {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.rodape-logo img {
+  height: 44px;
+  margin: 0 auto;
+}
+
+.rodape-base {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 1.2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+
+@media (min-width: 700px) {
+  .secao {
+    padding: 4.5rem 0;
+  }
+}
+/* ==========================================================================
+   PÁGINA DE ARTIGO - estilos específicos
+   (usa as variáveis e classes globais definidas em style.css)
+   ========================================================================== */
+
+/* ---------- Topo da página ---------- */
+.topo-pagina {
+  padding: 3.5rem 0 1rem;
+}
+
+.categoria {
+  display: inline-block;
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cor-vermelho);
+  border-bottom: 3px solid var(--cor-dourado);
+  padding-bottom: 0.4rem;
+  margin-bottom: 1.8rem;
+}
+
+.titulo-principal {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 2.4rem;
+  line-height: 1.25;
+  color: var(--cor-preto);
+  margin-bottom: -3rem;
+  max-width: 900px;
+}
+
+/* ---------- Corpo do artigo ---------- */
+.corpo-artigo {
+  max-width: 880px;
+}
+
+.corpo-artigo p {
+  margin-bottom: 1.8rem;
+  line-height: 1.8;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.subtitulo-artigo {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--cor-preto);
+  margin: 3rem 0 1.5rem;
+}
+
+.frase-destaque {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--cor-preto);
+  margin-bottom: 1.8rem;
+}
+
+.citacao-santa {
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--cor-vermelho);
+  border-left: 4px solid var(--cor-dourado);
+  padding: 0.2rem 0 0.2rem 1.2rem;
+  margin: 2rem 0;
+}
+
+/* ---------- Bloco com imagem ao lado do texto ---------- */
+.bloco-com-imagem {
+  display: grid;
+  grid-template-columns: minmax(140px, 260px) 1fr;
+  gap: 1.8rem;
+  align-items: start;
+  margin-bottom: 1.8rem;
+}
+
+.bloco-com-imagem img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--raio-borda);
+}
+
+.bloco-com-imagem .bloco-texto p {
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+}
+
+.bloco-com-imagem .bloco-texto p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Imagem em largura total ---------- */
+.imagem-cheia {
+  margin: 2.5rem 0;
+  border-radius: var(--raio-borda);
+  overflow: hidden;
+}
+
+.imagem-cheia img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---------- Card do autor do artigo ---------- */
+.autor-artigo {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.4rem;
+  align-items: center;
+  margin: 2.5rem 0 0.5rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.autor-foto {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  padding: 3px;
+  background: var(--cor-vermelho);
+  flex-shrink: 0;
+}
+
+.autor-foto img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--cor-creme);
+}
+
+.autor-nome {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cor-vermelho);
+  line-height: 1.2;
+}
+
+.autor-descricao {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--cor-texto-claro);
+  text-align: left;
+}
+
+.autor-cta {
+  margin: 1.2rem 0 2rem;
+}
+
+.autor-cta a {
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--cor-vermelho);
+  transition: color var(--transicao);
+}
+
+.autor-cta a:hover {
+  color: var(--cor-dourado-escuro);
+}
+
+@media (max-width: 480px) {
+  .autor-artigo {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .autor-descricao {
+    text-align: center;
+  }
+
+  .autor-cta {
+    text-align: center;
+  }
+}
+
+/* ---------- Bloco com imagem ao lado do texto ---------- */
+.bloco-com-imagem {
+  display: grid;
+  grid-template-columns: minmax(140px, 260px) 1fr;
+  gap: 1.8rem;
+  align-items: start;
+  margin-bottom: 1.8rem;
+}
+
+.bloco-com-imagem img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--raio-borda);
+}
+
+.bloco-com-imagem .bloco-texto p {
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+}
+
+.bloco-com-imagem .bloco-texto p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Imagem em largura total ---------- */
+.imagem-cheia {
+  margin: 2.5rem 0;
+  border-radius: var(--raio-borda);
+  overflow: hidden;
+}
+
+.imagem-cheia img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ---------- Responsivo ---------- */
+/* O bloco com imagem só empilha em telas realmente pequenas,
+   pra manter texto ao lado da imagem no máximo de larguras possível */
+@media (max-width: 560px) {
+  .titulo-principal {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bloco-com-imagem {
+    grid-template-columns: 110px 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .bloco-com-imagem {
+    grid-template-columns: 1fr;
+  }
+
+  .bloco-com-imagem img {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+ 
+<!-- ==================== CABEÇALHO ==================== -->
+  <header class="cabecalho">
+    <div class="container">
+      <button class="botao-menu" aria-label="Abrir menu">
+        <span class="icone-hamburguer">
+          <span></span><span></span><span></span>
+        </span>
+        MENU
+      </button>
+
+      <a href="../index.html" class="logo">
+        <img src="../img/logo.png" alt="Pantokrator">
+      </a>
+
+      <div></div> <!-- espaço vazio para manter a logo centralizada -->
+    </div>
+  </header>
+
+  <!-- ==================== MENU EM GAVETA ==================== -->
+  <div class="menu-fundo"></div>
+  <nav class="menu-principal">
+    <div class="menu-cabecalho">
+      <button class="menu-fechar" aria-label="Fechar menu">&times;</button>
+    </div>
+    <ul class="menu-lista">
+      <li><a href="../index.html">Início</a></li>
+      <li><a href="sobre-nos.html">História</a></li>
+      <li><a href="sobre-nos.html">Fundador</a></li>
+      <li><a href="sobre-nos.html">Carisma</a></li>
+      <li><a href="sobre-nos.html">Santos Baluartes</a></li>
+      <li><a href="onde-estamos.html">Onde Estamos</a></li>
+      <li><a href="projetos.html">Nossos Projetos</a></li>
+      <li><a href="artigos.html">Artigos</a></li>
+    </ul>
+  </nav>
+
+
+  <main>
+
+    <!-- ==================== TOPO DA PÁGINA ==================== -->
+    <section class="topo-pagina">
+      <div class="container">
+        <span class="categoria">Artigos</span>
+        <h1 class="titulo-principal">Como as emoções e sentimentos podem afetar nossa vontade</h1>
+      </div>
+    </section>
+
+    <!-- ==================== CORPO DO ARTIGO ==================== -->
+    <section class="secao">
+      <div class="container">
+        <div class="corpo-artigo">
+
+          <p>
+            As emoções e os sentimentos são experiências psíquicas íntimas, vividas diariamente e repetidamente, que integram a afetividade humana. O que muitos não 
+            sabem é que tais vivências são amorais. Ou seja, não são boas e nem más, pois dependem de como o indivíduo se comporta em relação a elas. Vejamos como as 
+            emoções e os sentimentos podem afetar nossa vontade e influenciar nossas ações.
+          </p>
+        
+          <p>
+            Para entender melhor, precisamos definir o que significa uma emoção e um sentimento. As emoções são sensações transitórias, ou seja, são momentâneas e 
+            inconstantes. É a alegria de ver uma criança feliz passando na rua, uma tristeza ao saber que alguém se machucou ou a ira diante de uma injustiça. Já os 
+            sentimentos são como que estado interior, por serem mais estáveis, não tão intensos e menos reativos a estímulos passageiros.
+          </p>
+
+          <p>
+            Um ser humano saudável experimenta emoções e sentimentos o tempo todo, inúmeras vezes ao dia e de maneira repetida, juntamente com outros elementos que compõem 
+            a afetividade humana. Tais elementos surgem dentro de nós sem serem planejados e, quando percebemos, eles já se manifestaram.
+          </p>
+
+          <h2 class="subtitulo-artigo">Entendendo as Emoções e os Sentimentos: Caminhos para o Bem e o Amor</h2>
+
+          <p>
+            Como dito anteriormente, as emoções e os sentimentos são amorais por si mesmos e, dependendo de como lidamos com elas, é que serão boas ou más. Serão boas se, 
+            com nossa inteligência e utilizando o autoconhecimento, direcionarmos aquela experiência para o bem e para o amor. Exemplos palpáveis que quase todos vivem no 
+            cotidiano são as emoções que surgem diante das más condutas no trânsito. Se você acabou de ser “fechado” por um carro que não deu seta, deve sentir raiva e 
+            indignação com aquela falta de educação. Diante do acontecimento, existem duas opções: a primeira é abaixar o vidro e brigar com o condutor e a segunda é 
+            perdoá-lo, relevar e seguir adiante.
+          </p>
+
+          <p>
+            Com um sentimento, é o mesmo processo: alguém que sente tristeza por ter sido injustiçado no passado tem a chance de se entregar à desesperança ou culpa. 
+            Mas também tem a opção de ressignificar e recapitular o acontecimento como um aprendizado e seguir sua vida com leveza, deixando o trauma para trás. 
+          </p>
+
+          <div class="bloco-com-imagem">
+            <img src="../img/vontade-afetada.png" alt="Mãos em oração">
+            <div class="bloco-texto">
+              <p>
+                É importante destacar que sempre há dois caminhos a serem seguidos e o que identifica esses caminhos é a inteligência, considerada por São Tomás de Aquino como 
+                uma faculdade própria da alma do ser humano, juntamente com a vontade. Se a inteligência (ou razão) identifica, é a vontade que impulsiona o indivíduo a 
+                escolher e executar. 
+              </p>
+              <p>
+                Esse processo entre razão e vontade dos seres humanos é algo que os diferencia dos animais, os quais não têm almas espirituais e, portanto, não conseguem 
+                escolher e se decidir por nada, apenas agem por instinto. Ora, não há mais estranheza atualmente ao nos depararmos com homens e mulheres agindo como escravos 
+                e sua afetividade, liderados por emoções e sentimentos, agem por impulsos. 
+              </p>
+            </div>
+          </div>
+
+          <h2 class="subtitulo-artigo">Por que a inteligência se silencia e a vontade se enfraquece a esse ponto? </h2>
+          <p>
+            A primeira resposta a esta pergunta se encerra na existência da concupiscência. O Sacramento do Batismo nos lava do pecado original, mas não apaga a tendência 
+            ao mal que cada ser humano carrega em si como uma marca deixada pelo pecado. É algo latente que tem o poder de enfraquecer a vontade de escolher o bom, o belo 
+            e o verdadeiro. Desta maneira, o ser humano tem dentro de si o potencial de ser santo, mas também tem o potencial de pecar e fazer escolhas ruins. Muitas vezes, 
+            o pecado acontece por falta de empenho da inteligência e passividade da vontade diante de emoções e sentimentos.
+          </p>
+
+          <p>
+            Além da concupiscência dentro de nós, é preciso se lembrar de que vivemos num mundo permeado pelo pecado fora de nós. Todos os dias, deparamo-nos com situações, 
+            ambientes, notícias, músicas, vídeos, fotos, comentários, etc, sobre as maldades constantes em nossa sociedade. Além de ideologias que têm ganhado espaço e têm 
+            distorcido muitas mentes. Uma ideologia corrente é o culto ao bem-estar, que prega que devemos fazer somente o que nos faz bem e a fuga das frustrações.
+          </p>
+
+          <p>
+            Corre-se o risco de começar a achar tais coisas normais e começar a agir assim. Quem nunca assistiu um filme policial e, de repente, teve tanta empatia pelo 
+            assassino que “torcia” por ele? Pois é, temos o potencial de sermos manipulados quando inseridos em determinado contexto e, de repente, deixamos de agir com 
+            nossa razão e vontade, deixando a afetividade conduzir a vida.
+          </p>
+
+          <div class="imagem-cheia">
+            <img src="../img/vontade-afetada.png" alt="Jesus cercado pelas pessoas">
+          </div>
+
+          <h2 class="subtitulo-artigo">Equilíbrio Emocional e Espiritual: A Chave para uma Vida Consciente e Alinhada com a Palavra de Deus</h2>
+
+          <p>
+            Muito se fala sobre inteligência emocional, que pode ser entendida como a capacidade de gerir suas próprias emoções. Isso nada mais é do que agir conforme 
+            a hierarquia da alma, na qual as faculdades da razão e vontade imperam sobre a afetividade. Se nossas emoções falarem mais alto, corremos o risco de sermos 
+            impulsivos e voláteis. Mas se pensarmos muito sem as emoções, podemos ser frios e calculistas. 
+          </p>
+
+          <p>
+            O equilíbrio da boa gestão está no autoconhecimento, aliado a uma boa dose de atenção ao ambiente externo, além de ser conduzido pela Palavra de Deus. De nada 
+            adianta o autoconhecimento se a pessoa permanece num ambiente tóxico que a leva a escolhas ruins e, por outro lado, uma pessoa sem autoconhecimento pode tender 
+            a superficialidade mesmo num ambiente saudável.
+          </p>
+
+          <p>
+            Peçamos ao Espírito de Deus a ajuda necessária para realizar o ajuste interno de que precisamos para suportar a luta contra as concupiscências num mundo de valores 
+            anti-cristãos que nos levam ao pecado.   
+          </p>
+
+            <div class="autor-artigo">
+            <div class="autor-foto">
+              <img src="../img/ana-clara-borges.avif" alt="Marcia Pataro">
+            </div>
+            <div class="autor-info">
+              <p class="autor-nome">Ana Clara Borges</p>
+              <p class="autor-descricao">Consagrada da Comunidade Pantokrator há 5 anos. Formada em Fisioterapia, formadora comunitária, da missão de Campinas.</p>
+            </div>
+          </div>
+
+           <div class="autor-cta">
+            <a href="escritores.html">Clique aqui para ver todos os escritores</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+    <!-- ==================== RODAPÉ ==================== -->
+  <footer class="rodape">
+    <div class="container">
+
+      <div class="rodape-grade">
+        <div>
+          <h4>Quem Somos</h4>
+          <ul>
+            <li><a href="sobre-nos.html">Quem somos</a></li>
+            <li><a href="artigos.html">Artigos</a></li>
+            <li><a href="ebook.html">Ebooks</a></li>
+            <li><a href="projetos.html">Nossos Projetos</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Onde Estamos</h4>
+          <ul>
+            <li><a href="onde-estamos.html">Sede Fundacional</a></li>
+            <li><a href="onde-estamos.html">Missão Morales</a></li>
+            <li><a href="onde-estamos.html">Missão França</a></li>
+            <li><a href="onde-estamos.html">Missão em Jaguariúna</a></li>
+            <li><a href="onde-estamos.html">Missão em Santos</a></li>
+            <li><a href="onde-estamos.html">Missão São José dos Campos</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Entre Aqui</h4>
+          <ul>
+            <li><a href="pages/doacoes.html">Doações</a></li>
+            <li><a href="pages/pedido-oracao.html">Pedido de oração</a></li>
+            <li><a href="pages/contato.html">Contato</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Redes Sociais</h4>
+          <ul>
+            <li><a href="https://www.instagram.com/compantokrator/" target="_blank">Instagram</a></li>
+            <li><a href="https://www.youtube.com/@compantokrator" target="_blank">Youtube</a></li>
+            <li><a href="https://open.spotify.com/intl-pt/artist/7LbSgDUNXEhzbdzxePeo5Q" target="_blank">Spotify</a></li>
+            <li><a href="https://www.facebook.com/compantokrator/?locale=pt_BR" target="_blank">Facebook</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="index.html" class="logo">
+        <img src="../img/logo.png" alt="Pantokrator">
+      </a>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

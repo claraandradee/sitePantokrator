@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onde Estamos | Pantokrator</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/onde-estamos.css">
+</head>
+<body>
+
+ 
+   <!-- ==================== CABEÇALHO ==================== -->
+  <header class="cabecalho">
+    <div class="container">
+      <button class="botao-menu" aria-label="Abrir menu">
+        <span class="icone-hamburguer">
+          <span></span><span></span><span></span>
+        </span>
+        MENU
+      </button>
+
+      <a href="../index.html" class="logo">
+        <img src="../img/logo.png" alt="Pantokrator">
+      </a>
+
+      <div></div> <!-- espaço vazio para manter a logo centralizada -->
+    </div>
+  </header>
+
+  <!-- ==================== MENU EM GAVETA ==================== -->
+  <div class="menu-fundo"></div>
+  <nav class="menu-principal">
+    <div class="menu-cabecalho">
+      <button class="menu-fechar" aria-label="Fechar menu">&times;</button>
+    </div>
+    <ul class="menu-lista">
+      <li><a href="../index.html">Início</a></li>
+      <li><a href="sobre-nos.html">História</a></li>
+      <li><a href="sobre-nos.html">Fundador</a></li>
+      <li><a href="sobre-nos.html">Carisma</a></li>
+      <li><a href="sobre-nos.html">Santos Baluartes</a></li>
+      <li><a href="onde-estamos.html">Onde Estamos</a></li>
+      <li><a href="projetos.html">Nossos Projetos</a></li>
+      <li><a href="artigos.html">Artigos</a></li>
+    </ul>
+  </nav>
+
+
+  <main>
+
+    <!-- ==================== TÍTULO DA PÁGINA ==================== -->
+    <section class="topo-pagina revelar">
+      <div class="container">
+        <p class="eyebrow-pagina eyebrow-sublinhado">Onde Estamos</p>
+        <h1 class="titulo-hero-missoes">Conheça as<br>Casas de Missão</h1>
+      </div>
+    </section>
+
+    <!-- ==================== CARROSSEL DE MISSÕES ==================== -->
+    <section class="secao">
+      <div class="container">
+        <div class="missao-carrossel revelar">
+
+          <button class="seta-missao seta-anterior" aria-label="Missão anterior">&#10094;</button>
+
+          <!--
+            Este card é preenchido inteiramente pelo JS (js/paginas/onde-estamos.js)
+            assim que a página carrega. NÃO edite título/texto/endereço/mapa aqui:
+            edite direto no array "missoes" dentro do arquivo .js — evita ter a
+            mesma informação escrita (e podendo ficar desatualizada) em dois lugares.
+          -->
+          <div class="cartao-missao" tabindex="0">
+            <div class="cartao-missao-linha">
+
+              <!-- IMAGEM DA MISSÃO (o src é trocado pelo JS) -->
+              <div class="cartao-missao-imagem">
+                <img src="" alt="" id="missaoImagem">
+              </div>
+
+              <!-- TEXTO DA MISSÃO (título e conteúdo preenchidos pelo JS) -->
+              <div class="cartao-missao-conteudo">
+                <h2 class="titulo-missao" id="missaoTitulo"></h2>
+
+                <div class="texto-missao-envolucro">
+                  <div class="texto-missao" id="missaoTexto"></div>
+                  <span class="dica-leia-mais">Passe o mouse para ler mais</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <button class="seta-missao seta-proximo" aria-label="Próxima missão">&#10095;</button>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== RODAPÉ ==================== -->
+  <footer class="rodape">
+    <div class="container">
+
+      <div class="rodape-grade">
+        <div>
+          <h4>Quem Somos</h4>
+          <ul>
+            <li><a href="sobre-nos.html">Quem somos</a></li>
+            <li><a href="artigos.html">Artigos</a></li>
+            <li><a href="ebook.html">Ebooks</a></li>
+            <li><a href="projetos.html">Nossos Projetos</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Onde Estamos</h4>
+          <ul>
+            <li><a href="onde-estamos.html">Sede Fundacional</a></li>
+            <li><a href="onde-estamos.html">Missão Morales</a></li>
+            <li><a href="onde-estamos.html">Missão França</a></li>
+            <li><a href="onde-estamos.html">Missão em Jaguariúna</a></li>
+            <li><a href="onde-estamos.html">Missão em Santos</a></li>
+            <li><a href="onde-estamos.html">Missão São José dos Campos</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Entre Aqui</h4>
+          <ul>
+            <li><a href="pages/doacoes.html">Doações</a></li>
+            <li><a href="pages/pedido-oracao.html">Pedido de oração</a></li>
+            <li><a href="pages/contato.html">Contato</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Redes Sociais</h4>
+          <ul>
+            <li><a href="https://www.instagram.com/compantokrator/" target="_blank">Instagram</a></li>
+            <li><a href="https://www.youtube.com/@compantokrator" target="_blank">Youtube</a></li>
+            <li><a href="https://open.spotify.com/intl-pt/artist/7LbSgDUNXEhzbdzxePeo5Q" target="_blank">Spotify</a></li>
+            <li><a href="https://www.facebook.com/compantokrator/?locale=pt_BR" target="_blank">Facebook</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="index.html" class="logo">
+        <img src="../img/logo.png" alt="Pantokrator">
+      </a>
+  </footer>
+
+  <script src="../js/script.js"></script>
+  <script src="../js/scroll-revelar.js"></script>
+  <script src="../js/paginas/onde-estamos.js"></script>
+</body>
+</html>
