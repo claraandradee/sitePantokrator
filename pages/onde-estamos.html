@@ -67,28 +67,21 @@
 
           <!--
             Este card é preenchido inteiramente pelo JS (js/paginas/onde-estamos.js)
-            assim que a página carrega. NÃO edite título/texto/endereço/mapa aqui:
+            assim que a página carrega. NÃO edite título/texto/endereço aqui:
             edite direto no array "missoes" dentro do arquivo .js — evita ter a
             mesma informação escrita (e podendo ficar desatualizada) em dois lugares.
+
+            O card não usa mais imagem, e não abre mais ao passar o mouse:
+            agora ele abre/fecha ao ser CLICADO (ou com Enter/Espaço, se
+            estiver focado pelo teclado). Isso é controlado pelo JS, que
+            alterna a classe "aberto" e o atributo aria-expanded abaixo.
           -->
-          <div class="cartao-missao" tabindex="0">
-            <div class="cartao-missao-linha">
+          <div class="cartao-missao" tabindex="0" role="button" aria-expanded="false">
+            <h2 class="titulo-missao" id="missaoTitulo"></h2>
 
-              <!-- IMAGEM DA MISSÃO (o src é trocado pelo JS) -->
-              <div class="cartao-missao-imagem">
-                <img src="" alt="" id="missaoImagem">
-              </div>
-
-              <!-- TEXTO DA MISSÃO (título e conteúdo preenchidos pelo JS) -->
-              <div class="cartao-missao-conteudo">
-                <h2 class="titulo-missao" id="missaoTitulo"></h2>
-
-                <div class="texto-missao-envolucro">
-                  <div class="texto-missao" id="missaoTexto"></div>
-                  <span class="dica-leia-mais">Passe o mouse para ler mais</span>
-                </div>
-              </div>
-
+            <div class="texto-missao-envolucro">
+              <div class="texto-missao" id="missaoTexto"></div>
+              <span class="dica-leia-mais">Clique para ler mais</span>
             </div>
           </div>
 
