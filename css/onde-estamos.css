@@ -2,7 +2,7 @@
    CABEÇALHO DA PÁGINA (eyebrow sublinhado + título grande espaçado)
    ========================================================================== */
 .topo-pagina {
-  padding: 2.6rem 0 1rem;
+  padding: clamp(1.6rem, 5vw, 2.6rem) 0 1rem;
   text-align: center;
 }
 
@@ -16,7 +16,7 @@
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--cor-vermelho);
-  margin-bottom: 2.2rem;
+  margin-bottom: clamp(1.2rem, 4vw, 2.2rem);
 }
 
 .eyebrow-sublinhado {
@@ -31,98 +31,82 @@
   text-transform: uppercase;
   text-align: center;
   color: var(--cor-marinho);
-  font-size: 2.4rem;
+  font-size: clamp(1.4rem, 4.5vw, 2.4rem);
   letter-spacing: 0.22em;
   line-height: 1.6;
 }
 
 /* ==========================================================================
-   CARROSSEL DE MISSÕES (título + texto trocam ao clicar nas setas)
+   CARROSSEL DE MISSÕES
+   (título + texto trocam ao clicar nas setas; o card abre/fecha ao ser
+   clicado — ou com Enter/Espaço, se estiver focado pelo teclado)
    ========================================================================== */
 .missao-carrossel {
   display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  max-width: 1100px;
+  align-items: flex-start;
+  gap: clamp(0.4rem, 2vw, 1.5rem);
+  max-width: 900px;
   margin: 0 auto;
 }
 
 .seta-missao {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-top: 0.6rem;
   background: transparent;
   border: none;
   color: var(--cor-marinho);
-  font-size: 1.5rem;
-  padding: 0.5rem;
+  font-size: 1.4rem;
   opacity: 0.75;
+  cursor: pointer;
   transition: opacity var(--transicao), transform var(--transicao);
 }
 
-.seta-missao:hover {
+.seta-missao:hover,
+.seta-missao:focus-visible {
   opacity: 1;
   transform: scale(1.15);
 }
 
 .cartao-missao {
   flex: 1;
+  min-width: 0;
   background-color: #dcd8d1; /* ajuste este tom de cinza se quiser bater exatamente com a marca */
-  border-radius: 28px;
-  padding: 1.8rem 2.2rem;
-  transition: opacity 0.2s ease, box-shadow var(--transicao), transform 0.4s ease, padding 0.4s ease;
+  border-radius: 24px;
+  padding: clamp(1.4rem, 4vw, 1.8rem) clamp(1.2rem, 5vw, 2.2rem);
   cursor: pointer;
+  transition: opacity 0.2s ease, box-shadow var(--transicao);
 }
 
-.cartao-missao:hover,
-.cartao-missao:focus-within {
+.cartao-missao:hover {
+  box-shadow: 0 12px 30px rgba(20, 60, 75, 0.15);
+}
+
+.cartao-missao:focus-visible {
+  outline: 2px solid var(--cor-vermelho);
+  outline-offset: 4px;
+}
+
+/* Estado aberto: aplicado pelo JS ao clicar (ou dar Enter/Espaço) no card */
+.cartao-missao.aberto {
   box-shadow: 0 18px 40px rgba(20, 60, 75, 0.2);
-  transform: scale(1.015);
-  padding: 2.6rem 3.2rem;
 }
 
 .cartao-missao.trocando {
   opacity: 0;
 }
 
-/* Linha interna: imagem de um lado, texto do outro */
-.cartao-missao-linha {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
-.cartao-missao-imagem {
-  flex-shrink: 0;
-  width: 220px;
-  height: 220px;
-  border-radius: 20px;
-  overflow: hidden;
-  transition: width 0.4s ease, height 0.4s ease;
-}
-
-.cartao-missao-imagem img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.cartao-missao:hover .cartao-missao-imagem,
-.cartao-missao:focus-within .cartao-missao-imagem {
-  width: 260px;
-  height: 260px;
-}
-
-.cartao-missao-conteudo {
-  flex: 1;
-  min-width: 0;
-}
-
 .titulo-missao {
   text-align: left;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   font-family: var(--fonte-titulo);
   font-weight: 700;
-  font-size: 1.3rem;
+  font-size: clamp(1.05rem, 3vw, 1.3rem);
   color: var(--cor-marinho);
   margin-bottom: 1rem;
 }
@@ -135,7 +119,7 @@
 .texto-missao {
   color: var(--cor-texto);
   line-height: 1.9;
-  font-size: 1rem;
+  font-size: clamp(0.92rem, 2vw, 1rem);
   text-align: justify;
 
   /* Caixa menor por padrão: mostra só ~2 linhas do primeiro parágrafo */
@@ -152,7 +136,7 @@
   margin-bottom: 0;
 }
 
-/* Linhas de contato (Localização, Endereço, E-mail, Telefone) */
+/* Linhas de contato (Localização, Endereço, Grupos, E-mail, Telefone) */
 .texto-missao .info-missao {
   font-size: 0.92rem;
   text-align: left;
@@ -162,7 +146,7 @@
   color: var(--cor-marinho);
 }
 
-/* Degradê que indica que há mais texto abaixo */
+/* Degradê que indica que há mais texto abaixo, quando fechado */
 .texto-missao-envolucro::after {
   content: "";
   position: absolute;
@@ -188,17 +172,13 @@
   transition: opacity 0.3s ease;
 }
 
-/* Estado expandido: ao passar o mouse (ou focar via teclado) no card,
-   o texto cresce bem mais do que o tamanho padrão */
-.cartao-missao:hover .texto-missao,
-.cartao-missao:focus-within .texto-missao {
+/* Estado aberto: o texto cresce e some o degradê + a dica */
+.cartao-missao.aberto .texto-missao {
   max-height: 60em;
 }
 
-.cartao-missao:hover .texto-missao-envolucro::after,
-.cartao-missao:focus-within .texto-missao-envolucro::after,
-.cartao-missao:hover .dica-leia-mais,
-.cartao-missao:focus-within .dica-leia-mais {
+.cartao-missao.aberto .texto-missao-envolucro::after,
+.cartao-missao.aberto .dica-leia-mais {
   opacity: 0;
 }
 
@@ -206,52 +186,43 @@
    RESPONSIVO
    ========================================================================== */
 @media (max-width: 780px) {
-  .titulo-hero-missoes {
-    font-size: 1.5rem;
-    letter-spacing: 0.1em;
-  }
-
-  .cartao-missao,
-  .cartao-missao:hover,
-  .cartao-missao:focus-within {
-    padding: 1.6rem 1.4rem;
+  .cartao-missao {
     border-radius: 18px;
-    transform: none;
-  }
-
-  .missao-carrossel {
-    gap: 0.6rem;
-  }
-
-  .seta-missao {
-    font-size: 1.2rem;
-  }
-
-  /* Em telas menores, imagem em cima e texto embaixo */
-  .cartao-missao-linha {
-    flex-direction: column;
-    gap: 1.2rem;
-  }
-
-  .cartao-missao-imagem,
-  .cartao-missao:hover .cartao-missao-imagem,
-  .cartao-missao:focus-within .cartao-missao-imagem {
-    width: 100%;
-    height: 180px;
   }
 
   .titulo-missao {
     text-align: center;
   }
 
-  /* Em telas sem hover (celular), o texto já aparece completo */
   .texto-missao {
-    max-height: none;
-    overflow: visible;
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .missao-carrossel {
+    gap: 0.2rem;
+    align-items: center;
   }
 
-  .texto-missao-envolucro::after,
+  .seta-missao {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+    margin-top: 0;
+  }
+
+  .cartao-missao {
+    padding: 1.2rem 1rem;
+    border-radius: 14px;
+  }
+
+  .titulo-missao {
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+  }
+
   .dica-leia-mais {
-    display: none;
+    font-size: 0.68rem;
   }
 }
