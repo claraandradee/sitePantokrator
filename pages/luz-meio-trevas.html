@@ -369,10 +369,10 @@ button {
 .titulo-principal {
   font-family: var(--fonte-titulo);
   font-weight: 700;
-  font-size: 2.4rem;
+  font-size: clamp(1.5rem, 5vw, 2.4rem);
   line-height: 1.25;
   color: var(--cor-preto);
-  margin-bottom: -3rem;
+  margin-bottom: clamp(-3rem, -4vw, -1rem);
   max-width: 900px;
 }
 
@@ -386,6 +386,13 @@ button {
   line-height: 1.8;
   text-align: justify;
   hyphens: auto;
+}
+
+@media (max-width: 480px) {
+  .corpo-artigo p {
+    text-align: left;
+    hyphens: none;
+  }
 }
 
 .subtitulo-artigo {
@@ -529,68 +536,19 @@ button {
   }
 }
 
-/* ---------- Bloco com imagem ao lado do texto ---------- */
-.bloco-com-imagem {
-  display: grid;
-  grid-template-columns: minmax(140px, 260px) 1fr;
-  gap: 1.8rem;
-  align-items: start;
-  margin-bottom: 1.8rem;
-}
-
-.bloco-com-imagem img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  border-radius: var(--raio-borda);
-}
-
-.bloco-com-imagem .bloco-texto p {
-  margin-bottom: 1.2rem;
-  line-height: 1.7;
-}
-
-.bloco-com-imagem .bloco-texto p:last-child {
-  margin-bottom: 0;
-}
-
-/* ---------- Imagem em largura total ---------- */
-.imagem-cheia {
-  margin: 2.5rem 0;
-  border-radius: var(--raio-borda);
-  overflow: hidden;
-}
-
-.imagem-cheia img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
 /* ---------- Responsivo ---------- */
-/* O bloco com imagem só empilha em telas realmente pequenas,
-   pra manter texto ao lado da imagem no máximo de larguras possível */
-@media (max-width: 560px) {
-  .titulo-principal {
-    font-size: 1.7rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .bloco-com-imagem {
-    grid-template-columns: 110px 1fr;
-    gap: 1rem;
-  }
-}
-
-@media (max-width: 360px) {
+/* No celular, a imagem pequena que fica ao lado do texto (dentro de
+   .bloco-com-imagem) é removida — sobra só o texto em coluna única.
+   A imagem grande (.imagem-cheia), quando existir, continua aparecendo
+   normalmente, pois já é 100% responsiva por padrão. */
+@media (max-width: 700px) {
   .bloco-com-imagem {
     grid-template-columns: 1fr;
+    gap: 0;
   }
 
   .bloco-com-imagem img {
-    aspect-ratio: 16 / 9;
+    display: none;
   }
 }
 
