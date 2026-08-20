@@ -53,21 +53,12 @@
   z-index: 1;
 }
 
-.hero-artigos-texto {
-  position: absolute;
-  right: 2rem;
-  bottom: 1.6rem;
-  z-index: 2;
-  text-align: right;
-}
-
-.hero-artigos-texto h2 {
-  font-family: var(--fonte-titulo);
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #fff;
-  font-size: 1.9rem;
-  line-height: 1.25;
+/* Título dentro da faixa "Novos artigos toda semana" — usa a mesma
+   classe .titulo-artigo dos cards abaixo, mas maior e escalando com
+   clamp() em vez de um valor fixo, já que a faixa muda bastante de
+   proporção entre celular e telas largas. */
+.faixa-hero-artigos .titulo-artigo {
+  font-size: clamp(1rem, 4vw, 1.9rem);
 }
 
 /* ==========================================================================
@@ -82,7 +73,7 @@
 .campo-busca {
   display: block;
   box-sizing: border-box;
-  width: 90%;
+  width: 100%;
   padding: 0.95rem 1.6rem 0.95rem 3.1rem;
   border: 2px solid var(--cor-borda);
   border-radius: 999px;
@@ -217,7 +208,7 @@
 
 .botao-oracao {
   display: block;
-  width: 1120px;
+  width: 100%;
   padding: 1.3rem 1.8rem;
   border: 2px solid var(--cor-marinho);
   border-radius: 40px;
@@ -250,10 +241,6 @@
     flex: 1;
   }
 
-  .hero-artigos-texto h2 {
-    font-size: 1.2rem;
-  }
-
   .faixa-hero-artigos {
     aspect-ratio: 4 / 3;
   }
@@ -261,5 +248,33 @@
   .botao-oracao {
     font-size: 0.9rem;
     padding: 1.1rem 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .eyebrow-pagina {
+    font-size: 0.95rem;
+  }
+
+  .grade-conteudos {
+    gap: 1.1rem;
+  }
+
+  .coluna-miniaturas {
+    gap: 0.6rem;
+  }
+
+  .titulo-artigo {
+    padding: 1rem 1.1rem;
+    font-size: 0.95rem;
+  }
+
+  .lista-oracoes {
+    gap: 0.8rem;
+  }
+
+  .botao-oracao {
+    padding: 1rem 1.2rem;
+    border-radius: 28px;
   }
 }
